@@ -22,28 +22,36 @@ function textSlicer(text) {
 }
 
 let aud = null
+const { REACT_APP_API_KEY } = process.env
+
 
 
 function TextForm() {
     const [text, setText] = useState()
     const [audioContent, setAudioContent] = useState('')
     const [loading, setLoading] = useState(true)
+    const [playing, setPlaying] = useState(false)
 
     const onChange = (e) => {
-        const {name, value} = e.target
+        const {value} = e.target
         setText(value)
     }
-    const playAudio = (e) => {
-        e.preventDefault()
-        console.log('playing audio')
-        aud = new Audio(`data:audio/ogg;base64,${audioContent}`)
-        aud.play()
-    }
-    const pauseAudio = (e) => {
-        e.preventDefault()
-        console.log('pausing audio')
-        aud.pause()
-    }
+    // const playAudio = (e) => {
+    //     e.preventDefault()
+    //     console.log('playing audio')
+    //     if (audioContent !== '') {
+    //         aud = new Audio(`data:audio/ogg;base64,${audioContent}`)
+    //     }
+    //     setAudioContent('')
+    //     setPlaying(true)
+    //     aud.play()
+    // }
+    // const pauseAudio = (e) => {
+    //     e.preventDefault()
+    //     console.log('pausing audio')
+    //     setPlaying(false)
+    //     aud.pause()
+    // }
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -64,12 +72,12 @@ function TextForm() {
             console.log(request)
             // localStorage.setItem(`aud_${i}`, request.input.text)
             axios
-            .post('https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyARvyiLz1Uc9BhVKgQNWZBNtOybUKB7ohQ', request)
+            .post(`https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=${REACT_APP_API_KEY}`, request)
             .then(res => {
-                setAudioContent(audioContent + res.data.audioContent)
-                console.log(`done fetching`)
-                progress =+ 1
-                if(progress === i) {
+                setTimeout(setAudioContent(audioContent + res.data.audioContent), 2000)
+                progress += 1
+                console.log(`done fetching ${progress}/${newText.length}`, )
+                if(progress === newText.length) {
                     setLoading(false)
                     progress = 0
                 } else {
@@ -96,8 +104,10 @@ function TextForm() {
                 />
             </label>
             <button>Convert</button>
-            <button onClick={playAudio} disabled={loading}>Play</button>
-            <button onClick={pauseAudio} disabled={loading}>Pause</button>
+            <audio disable={loading} controls src={`data:audio/ogg;base64,${audioContent}`}></audio>
+            {/* {playing 
+            ? <button onClick={pauseAudio} disabled={loading}>Pause</button>
+            : <button onClick={playAudio} disabled={loading}>Play</button>} */}
         </form>
     </div>
     )
