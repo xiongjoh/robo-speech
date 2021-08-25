@@ -1,0 +1,7 @@
+need to figure out a way to authenticate myself so I can use the text-to-speech.
+
+read: https://cloud.google.com/docs/authentication/getting-started
+
+and work with: https://cloud.google.com/text-to-speech/docs/quickstart-protocol
+
+https://cloud.google.com/text-to-speech/docs/reference/rest

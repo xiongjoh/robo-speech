@@ -7,6 +7,18 @@
   pointer-events: none;
 }
 
+#textForm label{
+  margin: 5rem 0 2rem 0;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+textarea {
+  width: 50%;
+  height: 50vh;
+  margin: auto;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
