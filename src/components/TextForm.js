@@ -105,9 +105,9 @@ function TextForm() {
                 value={text}
                 />
             </label>
-            <button>Convert</button>
+            <button disabled={audioContent === "" ? true : false}>Convert</button>
             <audio controls src={`data:audio/ogg;base64,${audioContent}`}></audio>
-            <button onClick={clear}>Clear</button>
+            <button disabled={audioContent === "" ? false : true} onClick={clear}>Clear</button>
         </form>
     </div>
     )
