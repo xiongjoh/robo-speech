@@ -23,12 +23,12 @@ function textSlicer(text) {
 
 let aud = null
 const { REACT_APP_API_KEY } = process.env
-const initAudioContent = []
+const initAudioContent = ""
 
 
 function TextForm() {
-    const [text, setText] = useState()
-    const [audioContent, setAudioContent] = useState('')
+    const [text, setText] = useState('')
+    const [audioContent, setAudioContent] = useState(initAudioContent)
     const [loading, setLoading] = useState(true)
     const [ref, setRef] = useState([])
 
@@ -105,9 +105,9 @@ function TextForm() {
                 value={text}
                 />
             </label>
-            <button disabled={audioContent === "" ? true : false}>Convert</button>
+            <button disabled={audioContent === "" ? false : true}>Convert</button>
             <audio controls src={`data:audio/ogg;base64,${audioContent}`}></audio>
-            <button disabled={audioContent === "" ? false : true} onClick={clear}>Clear</button>
+            <button disabled={audioContent === "" ? true : false} onClick={clear}>Clear</button>
         </form>
     </div>
     )
